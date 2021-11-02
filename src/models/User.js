@@ -14,8 +14,20 @@ const UserSchema = new Schema({
 
     nameRoute:{ type:String, require:true  },
 
+    address:{
+        number:{ type:Number, require:true },
 
+        flat:{ type:Number   },
+    
+        zipCode:{ type:Number,  require:true  },
+    
+        contactNumber:{type:Number,require:true },
+    }, 
+    email:{ type:String, require:true  },
 
+    password:{ type:String, require:true  },
+
+    createDate:{ type:Date,require:true  },  
 })
 
 module.exports = mongoose.model('Users' , UserSchema )
