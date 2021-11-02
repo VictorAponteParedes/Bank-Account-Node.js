@@ -3,18 +3,13 @@ const express = require('express')
 const route = express.Router()
 
 //!Importaciones de Archivos Externos
-const Cuenta = require('../models/Cuenta')
-const Cuenta = require('../models/User')
-const Cuenta = require('../models/Address')
+const User = require('../models/User')
 
-//! Main Route
-route.get('/' , (req , res )=>{
-    res.send('Welcome to the Banks home page ! ')
-})
+
 //!to get all users
 route.get('/get' , async (req , res , next)=>{
   try{
-  await Cuenta.find()
+  await User.find()
  .then(data => res.json(data))
 } catch(e){
    return next(e)        
@@ -24,7 +19,7 @@ route.get('/get' , async (req , res , next)=>{
 route.get('/:id' , async (req , res , next)=>{
   try{
   const {id} = req.params;
-  await Cuenta.findById(id)
+  await User.findById(id)
  .then(data => res.json(data))
  res.send('User obtained !')
 }catch(e){
@@ -33,10 +28,10 @@ route.get('/:id' , async (req , res , next)=>{
 })
 
 //! User Loger 
-route.post('/login' ,async (req , res , next )=>{
+route.post('/' ,async (req , res , next )=>{
     try{
-    const cuenta = Cuenta(req.body)
-    await cuenta.save()
+    const user = User(req.body)
+    await user.save()
     res.send('Account Created')
   } catch(e){
     return next(e)
@@ -50,7 +45,7 @@ route.put('/:id' ,async(req , res)=>{
          nameRoute, number, flat, zipCode, contactNumber,
          email, password, createDate   } = req.body;
 
-  await Cuenta.updateOne(
+  await User.updateOne(
     {_id:id},{$set:{
     nationality,  name,   lastName,  dateOfBirth,
     nameRoute,  number,  flat, zipCode,
@@ -68,26 +63,13 @@ route.put('/:id' ,async(req , res)=>{
 route.delete('/:id' , async(req , res , next )=>{
   try{
       const {id} = req.params;
-      await Cuenta.findByIdAndRemove(id);
+      await User.findByIdAndRemove(id);
   }   catch(e){
       return next(e)
   }
    res.send('user deleted!')
 
 })
-
-
-
-
- 
-
-
-
-
-
-
-
-
 
 module.exports  = route ;
 
